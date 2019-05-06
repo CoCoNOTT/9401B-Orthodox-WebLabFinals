@@ -1,0 +1,23 @@
+body{
+	background-color: #888888;
+}
+.navbar {
+	font-size:25px;
+	color:#FFFFFF;
+}
+
+.container{
+	margin-top: 5%;
+}
+
+.navbar li{
+	padding-left:4%;
+}
+
+.logo img{
+	width:200px;
+}
+
+.user-img img{
+	width:50px;
+}

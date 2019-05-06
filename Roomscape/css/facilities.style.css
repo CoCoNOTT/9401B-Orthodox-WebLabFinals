@@ -1,0 +1,56 @@
+body{
+	background-color: #888888;
+}
+.navbar {
+	font-size:25px;
+	color:#FFFFFF;
+}
+
+.container{
+	margin-top: 5%;
+}
+
+.navbar li{
+	padding-left:4%;
+}
+
+.logo img{
+	width:200px;
+}
+
+.user-img li{
+	padding-left:280;
+}
+
+.user-img img{
+	width:50px;
+}
+
+.modal-header{
+	background-color:#3b4652;
+}
+
+.modal-footer{
+	background-color:#3b4652;
+}
+
+
+.btn-space{
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 15px;
+}
+
+.modal-content{
+	box-shadow: 0px 0px 3px; 
+}
+
+.modal-body img{
+	-webkit-box-shadow: 1px 4px 26px 20px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 4px 26px 20px rgba(0,0,0,0.75);
+	box-shadow: 1px 4px 26px 20px rgba(0,0,0,0.75);	
+}
+
+.col-md-4{
+	padding-top:15px;
+}
