@@ -1,0 +1,46 @@
+html,body{
+	height:100%;
+	margin: 0;
+	width: 100%;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 16px;
+}
+
+.index-img img{
+	border: 10px;
+	border-color: black;
+}
+
+.navbar {
+	font-size:25px;
+	background-color:#3b4652;
+}
+
+.container{
+	margin-top: 6%;
+}
+
+.navbar li{
+	padding-left:4%;
+}
+
+.logo img{
+	width:150px;
+	
+}
+
+.user-img img{
+	width:25px;
+}
+/*
+.box{
+background-color:  #D3D3D3;	
+}
+*/
