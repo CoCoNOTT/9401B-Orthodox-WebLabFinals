@@ -4,10 +4,11 @@
     Author     : Acer
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
     <html>
@@ -20,7 +21,7 @@
 	</head>
 		
 	<body>
-            <%
+        <%
         String user = (String)session.getAttribute("currentuser");
         
         //redirect user to login page if not logged in
@@ -30,15 +31,22 @@
         %>
         
         <%
-        String userid;
+        //int userid = Integer.parseInt(user);
         String name = request.getParameter("name");
         String grp = request.getParameter("group");
         String adv = request.getParameter("adviser");
         String act = request.getParameter("activity");
         String venue = request.getParameter("venue");
         String noParticipants = request.getParameter("noParticipants");
-        String date = request.getParameter("date");
-        String time = request.getParameter("time");
+        
+        String year = request.getParameter("year"); 
+        String month = request.getParameter("month"); 
+        String day = request.getParameter("day"); 
+        String date = year+"-"+month+"-"+day;
+        
+        String hours = request.getParameter("hours");
+        String minutes = request.getParameter("minutes");
+        String time = hours+":"+minutes;
         
         String janitorres = request.getParameter("janitor");
         String guardres = request.getParameter("guard");
@@ -48,22 +56,32 @@
         
         Class.forName("com.mysql.jdbc.Driver");
     
-        Connection con = null;
+        Connection conn = null;
         Statement st = null;
-    
+        ResultSet rs = null;
+        
         try{
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/room", "root", "");
-            st = con.createStatement();
-    
-            String sql = "INSERT INTO reservation (user_id,name,organization,adviser,activity,venue,event_date,event_time,members,janitor,security,staff,comment,status) VALUES('" + "" + "','" + name + "',"
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/room", "root", "");
+            st = conn.createStatement();
+            
+            String userid = "SELECT user_id FROM user WHERE username='" + user +"'";
+            rs = st.executeQuery(userid);
+            if (rs.next()){
+                String id = rs.getString("user_id");
+                
+                String sql = "INSERT INTO reservation (user_id,name,organization,adviser,activity,venue,event_date,event_time,members,janitor,security,staff) VALUES('" + id + "','" + name + "',"
                     + "'" + grp + "',"
                     + "'" + adv + "', '" + act + "','" + venue + "','" + date + "','" + time + "','" + noParticipants + "',"
                     + "'" + janitorres + "','" + guardres + "','" + staffres + "')";
-            int flage = st.executeUpdate(sql);
-            out.println("Successfully reserved");
+            st.executeUpdate(sql);
+            out.println("Reservation successful.");
+             }
         } catch (Exception e){
             e.printStackTrace();
         }
+        conn.close();
+        st.close();
+        rs.close();
         %>
 	<!-- Navigation start -->
 			<nav class="navbar navbar-expand-md navbar-dark">
@@ -77,7 +95,7 @@
 					<a class="nav-link" href="../Index.html"> Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="facilities.html"> Facilities</a>
+					<a class="nav-link" href="facilities.jsp"> Facilities</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="guidelines.html"> Guidelines</a>
@@ -97,7 +115,7 @@
 								<ul class="dropdown-menu dropdown-menu-right">
 									<a class="dropdown-item" tabindex="-1" href="#">Papa Jones</a>
 									<a class="dropdown-item" tabindex="-1" href="#">Profile</a>
-									<a class="dropdown-item" tabindex="-1" href="#">Log out</a>
+									<a class="dropdown-item" tabindex="-1" href="../logout.jsp">Log out</a>
 								</ul>
 							</div>
 						</li>
@@ -203,7 +221,7 @@
 			<!-- Modal Body start -->
 			
 			<div class="modal-body">
-					<form class="form-group">
+					<form class="form-group" action="facilities.jsp" method="post">
 					<!-- Form start -->
 						<div class="row">	
 							<div class="col-lg-6">
@@ -237,12 +255,106 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<label>Date of the event:</label>			
-									<input class="form-control" type="date" name="date" id="example-date-input">
+                                                                <br>
+      
+       YYYY<select name="year">
+       <option value="">--Select--</option>
+       <option value="2019">2019</option>
+       <option value="2020">2020</option>
+       </select>
+      
+      
+       MM<select name="month">
+       <option value="">--Select--</option>
+       <option value="01">January</option>
+       <option value="02">February</option>
+       <option value="03">March</option>
+       <option value="04">April</option>
+       <option value="05">May</option>
+       <option value="06">June</option>
+       <option value="07">July</option>
+       <option value="08">August</option>
+       <option value="09">September</option>
+       <option value="10">October</option>
+       <option value="11">November</option>
+       <option value="12">December</option>
+       </select>
+      
+      
+       DD<select name="day">
+       <option value="">--Select--</option>
+       <option value="01">01</option>
+       <option value="02">02</option>
+       <option value="03">03</option>
+       <option value="04">04</option>
+       <option value="05">05</option>
+       <option value="06">06</option>
+       <option value="07">07</option>
+       <option value="08">08</option>
+       <option value="09">09</option>
+       <option value="10">10</option>
+       <option value="11">11</option>
+       <option value="12">12</option>
+       <option value="13">13</option>
+       <option value="14">14</option>
+       <option value="15">15</option>
+       <option value="16">16</option>
+       <option value="17">17</option>
+       <option value="18">18</option>
+       <option value="19">19</option>
+       <option value="20">20</option>
+       <option value="21">21</option>
+       <option value="22">22</option>
+       <option value="23">23</option>
+       <option value="24">24</option>
+       <option value="25">25</option>
+       <option value="26">26</option>
+       <option value="27">27</option>
+       <option value="28">28</option>
+       <option value="29">29</option>
+       <option value="30">30</option>
+       <option value="31">31</option>
+       </select>
+         
 							</div>
-					
+                                                        
 							<div class="col-lg-6">
-								<label>Time of the event:</label>
-								<input class="form-control" type="time" value="13:45:00" name="time" id="example-time-input">
+                                                            <br>
+                                                            <label>Time of the event:</label>
+                                                            <br>
+       HR<select name="hours">
+       <option value="">--Select--</option>
+       <option value="07">07</option>
+       <option value="08">08</option>
+       <option value="09">09</option>
+       <option value="10">10</option>
+       <option value="11">11</option>
+       <option value="12">12</option>
+       <option value="13">13</option>
+       <option value="14">14</option>
+       <option value="15">15</option>
+       <option value="16">16</option>
+       <option value="17">17</option>
+       <option value="18">18</option>
+       <option value="19">19</option>
+       <option value="20">20</option>
+       </select>
+       
+       MIN<select name="minutes">
+       <option value="">--Select--</option>
+       <option value="00">00</option>
+       <option value="05">05</option>
+       <option value="10">10</option>
+       <option value="15">15</option>
+       <option value="20">20</option>
+       <option value="25">25</option>
+       <option value="30">30</option>
+       <option value="35">35</option>
+       <option value="40">40</option>
+       <option value="45">45</option>
+       <option value="50">50</option>
+       <option value="55">55</option>
+       </select>
 							</div>
 						</div>
 						
@@ -251,7 +363,7 @@
 						
 						<div class="row">
 							<div class="col-lg-6">
-								<label>No. of members/Partipant/s:</label>
+								<label>No. of members/Participant/s:</label>
 								<input type="text" class="form-control" id="noParticipants" name="noParticipants" placeholder="Enter No. of members/Partipant/s...">
 							</div>
 							
@@ -322,7 +434,7 @@
 					</div>
 					<!-- Selected Item and quality container -->
 					</div>
-                                        <input type="submit" class="btn btn-primary btn-block btn-large" name = "submit" value = "submit">
+                                        <input type="submit" class="btn btn-primary btn-block btn-large" name = "submit" value = "Submit">
 				</form>
 				<!-- Form end -->
 				
