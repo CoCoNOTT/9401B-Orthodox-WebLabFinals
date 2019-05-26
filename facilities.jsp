@@ -31,7 +31,6 @@
         %>
         
         <%
-        //int userid = Integer.parseInt(user);
         String name = request.getParameter("name");
         String grp = request.getParameter("group");
         String adv = request.getParameter("adviser");
@@ -52,7 +51,7 @@
         String guardres = request.getParameter("guard");
         String staffres = request.getParameter("staff");
 
-        String qty = request.getParameter("quantity");
+        //String qty = request.getParameter("quantity");
         
         Class.forName("com.mysql.jdbc.Driver");
     
@@ -69,11 +68,11 @@
             if (rs.next()){
                 String id = rs.getString("user_id");
                 
-                String sql = "INSERT INTO reservation (user_id,name,organization,adviser,activity,venue,event_date,event_time,members,janitor,security,staff) VALUES('" + id + "','" + name + "',"
+                String reserve = "INSERT INTO reservation (user_id,name,organization,adviser,activity,venue,event_date,event_time,members,janitor,security,staff) VALUES('" + id + "','" + name + "',"
                     + "'" + grp + "',"
                     + "'" + adv + "', '" + act + "','" + venue + "','" + date + "','" + time + "','" + noParticipants + "',"
                     + "'" + janitorres + "','" + guardres + "','" + staffres + "')";
-            st.executeUpdate(sql);
+            st.executeUpdate(reserve);
             out.println("Reservation successful.");
              }
         } catch (Exception e){
@@ -113,7 +112,7 @@
 								<img src="../pictures/user1.png" class="img-responsive" alt="Logo">
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right">
-									<a class="dropdown-item" tabindex="-1" href="#">Papa Jones</a>
+									<a class="dropdown-item" tabindex="-1" href="#"><%=user%></a>
 									<a class="dropdown-item" tabindex="-1" href="#">Profile</a>
 									<a class="dropdown-item" tabindex="-1" href="../logout.jsp">Log out</a>
 								</ul>
